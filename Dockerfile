@@ -1,5 +1,5 @@
-# Use official Python 3.11 slim image
-FROM python:3.11-slim
+# Use Python 3.10 slim for maximum compatibility
+FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
@@ -16,5 +16,5 @@ RUN pip install -r requirements.txt
 # Expose port for Render
 EXPOSE 10000
 
-# Run Gunicorn with 1 worker and longer timeout
-CMD ["sh", "-c", "gunicorn app:app -b 0.0.0.0:${PORT:-10000} -w 1 --timeout 120"]
+# Start the app using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]
